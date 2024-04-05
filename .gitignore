@@ -35,5 +35,5 @@ build/
 
 ### mvn unnecessary files ###
 
-./mvnw
-./mvnw.cmd
+mvnw
+mvnw.cmd
