@@ -20,6 +20,7 @@
         <module>gymapp-dto</module>
         <module>gymapp-mapper</module>
         <module>gymapp-service</module>
+        <module>gymapp</module>
     </modules>
     <properties>
         <java.version>21</java.version>
@@ -44,8 +45,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
