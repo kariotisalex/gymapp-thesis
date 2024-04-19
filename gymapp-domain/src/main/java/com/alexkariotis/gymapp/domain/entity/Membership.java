@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "membership")
 public class Membership {
+
     @Id
     @UuidGenerator
     private UUID id;
@@ -29,7 +32,8 @@ public class Membership {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @ManyToOne
+    @Fetch(FetchMode.JOIN) // TODO
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Users user;
 
