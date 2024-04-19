@@ -22,6 +22,10 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alexkariotis</groupId>
+            <artifactId>gymapp-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
