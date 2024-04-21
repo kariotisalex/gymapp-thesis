@@ -26,6 +26,25 @@
             <groupId>com.alexkariotis</groupId>
             <artifactId>gymapp-common</artifactId>
         </dependency>
+
+        <!-- Database Dependencies -->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+        </dependency>
+
+        <!-- Migration Dependencies -->
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
