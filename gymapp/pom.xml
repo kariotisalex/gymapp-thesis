@@ -27,6 +27,14 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alexkariotis</groupId>
+            <artifactId>gymapp-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alexkariotis</groupId>
+            <artifactId>gymapp-domain</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
