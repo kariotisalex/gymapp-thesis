@@ -1,17 +1,20 @@
 spring:
-  flyway:
-    enabled: true
-  sql:
-    init:
-      mode: never
-      encoding: utf-8
+  application:
+    name: AlexKariotis GymApp Thesis
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${DB_HOST:127.0.0.1}:${DB_PORT:5432}/${DB_NAME:postgres}?currentSchema=${DB_SCHEMA:public}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
+  sql:
+    init:
+      mode: never
+      encoding: utf-8
   jpa:
     hibernate:
       ddl-auto: validate
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
