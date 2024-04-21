@@ -16,10 +16,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "lessons")
 public class Lesson {
+
     @Id
     @UuidGenerator
     private UUID id;
 
+    @Column(name = "name")
     private String name;
 
     @Column(name = "duration_minutes")

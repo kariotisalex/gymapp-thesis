@@ -21,19 +21,15 @@ public class Appointment {
     @UuidGenerator
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @OneToOne
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
+    @ManyToOne
+    @JoinColumn(name = "time_schedule_id", nullable = false)
+    private TimeSchedule timeSchedule;
 
-    @OneToOne
-    @JoinColumn(name = "timetable_id")
-    private TimeTable timeTable;
-
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createAt;
 
 }

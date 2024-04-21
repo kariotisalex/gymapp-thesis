@@ -1,7 +1,6 @@
 package com.alexkariotis.gymapp.domain.entity;
 
 import jakarta.persistence.*;
-import jakarta.websocket.OnError;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "time_table")
-public class TimeTable {
+@Entity(name = "time_schedule")
+public class TimeSchedule {
 
     @Id
     @UuidGenerator
@@ -26,11 +25,11 @@ public class TimeTable {
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 

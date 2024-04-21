@@ -46,7 +46,7 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type")
-    @JdbcType(PostgreSQLEnumJdbcType.class)
+//    @JdbcType(PostgreSQLEnumJdbcType.class)
     private UsersType userType;
 
     @Column(name = "created_at")
