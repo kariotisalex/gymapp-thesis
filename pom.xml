@@ -29,6 +29,7 @@
         <flyway.version>10.11.1</flyway.version>
         <progresql.version>42.7.1</progresql.version>
         <hypersistence.version>3.7.3</hypersistence.version>
+        <vavr.version>0.10.4</vavr.version>
     </properties>
     <dependencies>
         <dependency>
@@ -82,17 +83,17 @@
                 <version>${project.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>${vavr.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-database-postgresql</artifactId>
                 <version>${flyway.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.flywaydb</groupId>-->
-<!--                <artifactId>flyway-core</artifactId>-->
-<!--                <version>${flyway.version}</version>-->
-<!--            </dependency>-->
+
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>

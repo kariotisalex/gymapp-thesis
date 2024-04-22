@@ -2,6 +2,7 @@ package com.alexkariotis.gymapp;
 
 import com.alexkariotis.gymapp.domain.entity.EntityConfiguration;
 import com.alexkariotis.gymapp.domain.repository.RepositoryConfiguration;
+import com.alexkariotis.gymapp.mapper.MapperConfiguration;
 import com.alexkariotis.gymapp.service.ServiceConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,8 @@ import org.springframework.context.annotation.Import;
 @Import({
         ServiceConfiguration.class,
         EntityConfiguration.class,
-        RepositoryConfiguration.class
+        RepositoryConfiguration.class,
+        MapperConfiguration.class
 })
 public class Application {
     public static void main(String[] args) {
