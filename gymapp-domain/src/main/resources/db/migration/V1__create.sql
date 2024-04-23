@@ -1,4 +1,4 @@
-CREATE TYPE UserType AS ENUM ('USER', 'INSTRUCTOR', 'ADMIN');
+CREATE TYPE Role AS ENUM ('ATHLETE', 'INSTRUCTOR', 'ADMIN');
 
 CREATE TABLE IF NOT EXISTS users (
             id UUID PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
             phone_number VARCHAR,
             birth_date DATE,
             address VARCHAR,
-            user_type UserType,
+            user_role Role,
             created_at TIMESTAMP WITH TIME ZONE,
             updated_at TIMESTAMP WITH TIME ZONE
 );
