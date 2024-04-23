@@ -1,6 +1,6 @@
 package com.alexkariotis.gymapp.domain.entity;
 
-import com.alexkariotis.gymapp.common.UsersType;
+import com.alexkariotis.gymapp.common.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,9 +45,9 @@ public class Users {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type")
-//    @JdbcType(PostgreSQLEnumJdbcType.class)
-    private UsersType userType;
+    @Column(name = "user_role")
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    private Role role;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

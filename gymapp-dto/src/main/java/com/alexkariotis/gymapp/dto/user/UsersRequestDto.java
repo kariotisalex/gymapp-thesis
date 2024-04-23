@@ -1,6 +1,6 @@
-package com.alexkariotis.gymapp.dto;
+package com.alexkariotis.gymapp.dto.user;
 
-import com.alexkariotis.gymapp.common.UsersType;
+import com.alexkariotis.gymapp.common.Role;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,6 +18,6 @@ public class UsersRequestDto {
     private String phoneNumber;
     private LocalDate birthdate;
     private String address;
-    private UsersType userType;
+    private Role role;
 
 }

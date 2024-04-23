@@ -1,8 +1,8 @@
 package com.alexkariotis.gymapp.api;
 
 
-import com.alexkariotis.gymapp.domain.entity.Users;
-import com.alexkariotis.gymapp.dto.UsersRequestDto;
+import com.alexkariotis.gymapp.dto.user.UsersRequestDto;
+import com.alexkariotis.gymapp.dto.user.UsersResponseDto;
 import com.alexkariotis.gymapp.mapper.UsersMapper;
 import com.alexkariotis.gymapp.service.UsersService;
 import io.vavr.control.Try;
@@ -10,11 +10,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/user")
-@RequiredArgsConstructor
+
 @Slf4j
+@RestController
+@RequestMapping("user")
+@RequiredArgsConstructor
 public class UserController {
 
 
@@ -24,20 +28,51 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<Users> getUser() {
-        return ResponseEntity.ok(new Users());
+    public ResponseEntity<List<UsersResponseDto>> getAllUser() {
+
+        return usersService.getAll()
+                .map(users ->  users.stream()
+                                    .map(usersMapper::toUsersResponseDto)
+                                    .collect(Collectors.toList()))
+                .map(ResponseEntity::ok)
+                .getOrElseThrow((ex) -> new RuntimeException("Something went wrong"));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsersResponseDto> getUsersById(@PathVariable("id") UUID userId) {
+        return usersService.findUserById(userId)
+                .map(usersMapper::toUsersResponseDto)
+                .map(ResponseEntity::ok)
+                .getOrElseThrow((ex) -> new RuntimeException("There is no User with id: " + userId
+                        +" error " + ex.getMessage()));
     }
 
     @PostMapping
-    public ResponseEntity<Users> createUser(@RequestBody UsersRequestDto usersRequestDto) {
-        return usersService.findUserByEmail(usersRequestDto.getEmail())
-                .recoverWith(ignored -> Try.of(() -> usersMapper.toUsers(usersRequestDto)))
-                .flatMap(user -> usersService.createNewUser(user))
+    public ResponseEntity<UsersResponseDto> createUser(@RequestBody UsersRequestDto usersRequestDto) {
+        return Try.of(() -> usersMapper.toUsers(usersRequestDto))
+                .flatMap(usersService::create)
+                .map(usersMapper::toUsersResponseDto)
                 .map(ResponseEntity::ok)
                 .onFailure(ex -> log.error("UsersController : createUser : "))
                 .getOrElseThrow((ex) -> new RuntimeException("Failed to create new User" + ex.getMessage()));
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") UUID userId) {
+        return usersService.findUserById(userId)
+                .flatMap(users -> usersService.delete(userId))
+                .map(ResponseEntity::ok)
+                .getOrElseThrow((ex) -> new RuntimeException("Something went wrong" + ex.getMessage()));
+    }
 
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<UsersResponseDto> updateUser(@PathVariable("id") UUID userId,
+                                                       @RequestBody UsersRequestDto usersRequestDto) {
+        return usersService.findUserById(userId)
+                .flatMap(usersService::update)
+                .map(usersMapper::toUsersResponseDto)
+                .map(ResponseEntity::ok)
+                .onFailure(ex -> log.error("UsersController : createUser : ", ex))
+                .getOrElseThrow((ex) -> new RuntimeException("Failed to create new User" + ex.getMessage()));
     }
 }
