@@ -1,6 +1,6 @@
 package com.alexkariotis.gymapp.common;
 
-public enum UsersType {
+public enum Role {
 
     ATHLETE,
 
