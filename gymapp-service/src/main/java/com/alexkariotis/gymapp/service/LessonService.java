@@ -17,6 +17,13 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
 
+    public Try<Lesson> create(Lesson lesson) {
+        lesson.setId(UUID.randomUUID());
+        lesson.setCreatedAt(LocalDateTime.now());
+        lesson.setUpdatedAt(LocalDateTime.now());
+        return Try.of(() -> lessonRepository.save(lesson));
+    }
+
     public Try<List<Lesson>> getAll() {
         return Try.of(lessonRepository::findAll);
     }
@@ -26,15 +33,12 @@ public class LessonService {
                 .getOrElseThrow(() -> new RuntimeException("There is no lesson with id " + lessonId )));
     }
 
-    public Try<Lesson> create(Lesson lesson) {
-        lesson.setId(UUID.randomUUID());
-        lesson.setCreatedAt(LocalDateTime.now());
+    public Try<Lesson> update(Lesson lesson) {
         lesson.setUpdatedAt(LocalDateTime.now());
         return Try.of(() -> lessonRepository.save(lesson));
     }
 
-    public Try<Lesson> update(Lesson lesson) {
-        lesson.setUpdatedAt(LocalDateTime.now());
-        return Try.of(() -> lessonRepository.save(lesson));
+    public Try<Void> delete(UUID lessonId) {
+        return Try.run(() -> lessonRepository.deleteById(lessonId));
     }
 }
