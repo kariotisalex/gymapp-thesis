@@ -22,10 +22,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alexkariotis</groupId>
             <artifactId>gymapp-domain</artifactId>
         </dependency>
