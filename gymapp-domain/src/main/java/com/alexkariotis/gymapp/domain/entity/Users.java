@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity(name = "users")
 public class Users {
 
