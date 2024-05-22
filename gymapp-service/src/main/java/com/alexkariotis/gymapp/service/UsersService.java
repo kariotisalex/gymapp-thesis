@@ -5,7 +5,11 @@ import com.alexkariotis.gymapp.domain.repository.UsersRepository;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,15 +22,17 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
 
-    public Try<List<Users>> getAll() {
-        return Try.of(usersRepository::findAll);
+    public Try<Page<Users>> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return Try.of(() -> usersRepository.findAll(pageable));
     }
 
     public Try<Users> create(final Users user){
         user.setId(UUID.randomUUID());
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        return Try.of(() -> usersRepository.save(user));
+        System.out.println(user);
+        return Try.of(() -> usersRepository.save(user)).onFailure(Throwable::printStackTrace);
     }
 
     public Try<Users> update(final Users user){

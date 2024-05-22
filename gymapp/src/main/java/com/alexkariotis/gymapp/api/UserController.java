@@ -28,9 +28,11 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<List<UsersResponseDto>> getAllUser() {
-
-        return usersService.getAll()
+    public ResponseEntity<List<UsersResponseDto>> getAllUser(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size
+    ) {
+        return usersService.getAll(page, size)
                 .map(users ->  users.stream()
                                     .map(usersMapper::toUsersResponseDto)
                                     .collect(Collectors.toList()))
