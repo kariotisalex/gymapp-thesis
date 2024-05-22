@@ -16,7 +16,7 @@ public class UsersRequestDto {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private LocalDate birthdate;
+    private String birthdate;
     private String address;
     private Role role;
 
