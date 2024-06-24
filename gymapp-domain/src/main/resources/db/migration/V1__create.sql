@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
             phone_number VARCHAR,
             birth_date DATE,
             address VARCHAR,
+            username varchar,
+            password varchar,
             user_role Role,
             created_at TIMESTAMP WITH TIME ZONE,
             updated_at TIMESTAMP WITH TIME ZONE

@@ -16,5 +16,7 @@ public interface UsersRepository extends JpaRepository<Users, UUID> {
 
     Page<Users> findAll(Pageable pageable);
 
+    Optional<Users> findByUsername(final String username);
+
 
 }

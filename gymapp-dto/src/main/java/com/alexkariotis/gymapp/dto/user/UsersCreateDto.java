@@ -1,30 +1,22 @@
 package com.alexkariotis.gymapp.dto.user;
 
 import com.alexkariotis.gymapp.common.Role;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.AllArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.UUID;
-
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersResponseDto {
+public class UsersCreateDto {
 
-    private UUID id;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
+    private String password;
     private String phoneNumber;
-    private LocalDate birthdate;
+    private String birthdate;
     private String address;
     private Role role;
 

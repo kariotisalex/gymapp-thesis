@@ -1,9 +1,10 @@
 package com.alexkariotis.gymapp.api;
 
 
-import com.alexkariotis.gymapp.dto.user.UsersRequestDto;
+import com.alexkariotis.gymapp.dto.user.UsersCreateDto;
 import com.alexkariotis.gymapp.dto.user.UsersResponseDto;
-import com.alexkariotis.gymapp.mapper.UsersMapper;
+import com.alexkariotis.gymapp.dto.user.UsersUpdateDto;
+import com.alexkariotis.gymapp.mapper.UsersCreateMapper;
 import com.alexkariotis.gymapp.service.UsersService;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,14 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("user")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
 
 
     private final UsersService usersService;
 
-    private final UsersMapper usersMapper;
+    private final UsersCreateMapper usersCreateMapper;
 
 
     @GetMapping
@@ -34,7 +35,7 @@ public class UserController {
     ) {
         return usersService.getAll(page, size)
                 .map(users ->  users.stream()
-                                    .map(usersMapper::toUsersResponseDto)
+                                    .map(usersCreateMapper::toUsersResponseDto)
                                     .collect(Collectors.toList()))
                 .map(ResponseEntity::ok)
                 .getOrElseThrow((ex) -> new RuntimeException("Something went wrong"));
@@ -43,21 +44,23 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UsersResponseDto> getUsersById(@PathVariable("id") UUID userId) {
         return usersService.findUserById(userId)
-                .map(usersMapper::toUsersResponseDto)
+                .map(usersCreateMapper::toUsersResponseDto)
                 .map(ResponseEntity::ok)
                 .getOrElseThrow((ex) -> new RuntimeException("There is no User with id: " + userId
                         +" error " + ex.getMessage()));
     }
 
-    @PostMapping
-    public ResponseEntity<UsersResponseDto> createUser(@RequestBody UsersRequestDto usersRequestDto) {
-        return Try.of(() -> usersMapper.toUsers(usersRequestDto))
-                .flatMap(usersService::create)
-                .map(usersMapper::toUsersResponseDto)
-                .map(ResponseEntity::ok)
-                .onFailure(ex -> log.error("UsersController : createUser : "))
-                .getOrElseThrow((ex) -> new RuntimeException("Failed to create new User" + ex.getMessage()));
-    }
+
+//    Note : Deleted because there is no authentication for a new user without credentials.
+//    @PostMapping
+//    public ResponseEntity<UsersResponseDto> createUser(@RequestBody UsersCreateDto usersCreateDto) {
+//        return Try.of(() -> usersCreateMapper.toUsers(usersCreateDto))
+//                .flatMap(usersService::create)
+//                .map(usersCreateMapper::toUsersResponseDto)
+//                .map(ResponseEntity::ok)
+//                .onFailure(ex -> log.error("UsersController : createUser : "))
+//                .getOrElseThrow((ex) -> new RuntimeException("Failed to create new User" + ex.getMessage()));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") UUID userId) {
@@ -69,12 +72,13 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UsersResponseDto> updateUser(@PathVariable("id") UUID userId,
-                                                       @RequestBody UsersRequestDto usersRequestDto) {
+                                                       @RequestBody UsersUpdateDto usersUpdateDto) {
         return usersService.findUserById(userId)
                 .flatMap(usersService::update)
-                .map(usersMapper::toUsersResponseDto)
+                .map(usersCreateMapper::toUsersResponseDto)
                 .map(ResponseEntity::ok)
                 .onFailure(ex -> log.error("UsersController : createUser : ", ex))
                 .getOrElseThrow((ex) -> new RuntimeException("Failed to create new User" + ex.getMessage()));
     }
+    // todo seperate update other information from username or/and password.
 }
