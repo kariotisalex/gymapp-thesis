@@ -28,9 +28,8 @@ public class AuthenticationService {
     }
 
     public String authenticate(final String username, final String password) {
-        System.out.println("Got here!");
         try {
-            System.out.println("Authenticating user: " + username);
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             username,

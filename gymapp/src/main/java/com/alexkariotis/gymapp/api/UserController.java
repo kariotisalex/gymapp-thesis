@@ -1,6 +1,7 @@
 package com.alexkariotis.gymapp.api;
 
 
+import com.alexkariotis.gymapp.domain.entity.Users;
 import com.alexkariotis.gymapp.dto.user.UsersCreateDto;
 import com.alexkariotis.gymapp.dto.user.UsersResponseDto;
 import com.alexkariotis.gymapp.dto.user.UsersUpdateDto;
@@ -40,6 +41,17 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .getOrElseThrow((ex) -> new RuntimeException("Something went wrong"));
     }
+
+    @GetMapping("ida")
+    public ResponseEntity<List<Users>> getUserById() {
+        return usersService.getAl()
+                .map(a -> {
+                    System.out.println(a);
+                    return ResponseEntity.ok(a);
+                })
+                .get();
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<UsersResponseDto> getUsersById(@PathVariable("id") UUID userId) {

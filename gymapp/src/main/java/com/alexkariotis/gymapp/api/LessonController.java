@@ -26,6 +26,7 @@ public class LessonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<LessonResponseDto> getLessonById(@PathVariable("id") UUID lessonId) {
+        System.out.println("got here!");
         return lessonService.getLessonById(lessonId)
                 .map(lessonMapper::toLessonResponseDto)
                 .map(ResponseEntity::ok)

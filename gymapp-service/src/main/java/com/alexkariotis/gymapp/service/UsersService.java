@@ -27,6 +27,10 @@ public class UsersService {
         return Try.of(() -> usersRepository.findAll(pageable));
     }
 
+    public Try<List<Users>> getAl() {
+        return Try.of(usersRepository::findAll);
+
+    }
     public Try<Users> create(final Users user){
         user.setId(UUID.randomUUID());
         user.setCreatedAt(LocalDateTime.now());
